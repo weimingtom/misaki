@@ -1,0 +1,29 @@
+TGUI 0.6-rc
+
+SharedWidgetPtr
+Transformable
+Borders
+Callback, CallbackManager
+Gui
+Defines.hpp
+
+ConfigFile, TextureManager -> sf::NonCopyable
+
+---------
+
+Widget -> sf::Drawable, Transformable, CallbackManager
+ChatBox, ComboBox, ListBox, TextBox -> Widget, WidgetBorders
+Container, MenuBar, Tab -> Widget
+Scrollbar -> Slider -> Widget
+
+xxx -> ClickableWidget -> Widget
+Button, Label, LoadingBar, Picture, SpinButton, AnimatedPicture -> ClickableWidget
+Slider2d -> ClickableWidget
+EditBox -> ClickableWidget, WidgetBorders
+RadioButton -> Checkbox -> ClickableWidget
+SpriteSheet -> Picture -> ClickableWidget
+
+
+MessageBox -> ChildWindow -> Container, WidgetBorders
+Grid -> Container
+Panel -> Container

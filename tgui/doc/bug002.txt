@@ -1,0 +1,32 @@
+TGUI error: Failed to parse value for NormalImage_L in section EditBox in ./widgets/Black.conf.
+TGUI error: Failed to parse value for NormalImage_L in section Button in ./widgets/Black.conf.
+
+TextureManager::getTexture
+loadFromFile return false
+
+Image::loadFromFile return false
+
+implement Image & Color
+
+
+-->        if (texture.data.image.loadFromFile(filename)) {
+            boolean success = false;
+            if (IntRect.isEqual(rect, new IntRect(0, 0, 0, 0))) {
+                success = texture.data.texture.loadFromImage(texture.data.image);
+            } else {
+                success = texture.data.texture.loadFromImage(texture.data.image, rect);
+            }
+            
+            if (success) {
+                texture.sprite.setTexture(texture.data.texture, true);
+
+                texture.data.filename = filename;
+                texture.data.users = 1;
+                return true;
+            }
+        }
+
+        m_ImageMap.remove(imageIt);
+        texture.data = null;
+        return false;
+        

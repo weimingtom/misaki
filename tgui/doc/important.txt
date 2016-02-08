@@ -1,0 +1,12 @@
+    public void draw(Vertex[] vertices, int vertexCount,
+            PrimitiveType type, RenderStates states) {
+    	//FIXME:important
+    	
+    }
+    
+    
+	public void test(BufferedImage img, double[][] zbuffer,
+			BufferedImage textureImg) {
+		//FIXME:important
+		
+	}

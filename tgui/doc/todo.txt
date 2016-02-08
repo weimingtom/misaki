@@ -1,0 +1,39 @@
+sf.text
+sf.RectangleShape
+sf.font
+sf.Text
+sf.View
+sf.RenderStates
+sf.Sprite
+sf.Vertex
+
+
+public class Sprite extends SFTransformable implements Drawable {
+	private Vertex[] m_vertices = new Vertex[4]; 
+	private SFTexture m_texture = null;  
+	private IntRect m_textureRect = new IntRect();
+	
+	public void setColor(Color color) {
+		
+	}
+
+	@Override
+	public void draw(RenderTarget target, RenderStates states) {
+		// TODO Auto-generated method stub
+	    if (m_texture != null) {
+	        Transform.multiplyEqual(states.transform, getTransform());
+	        states.texture = m_texture;
+	        target.draw(m_vertices, 4, PrimitiveType.Quads, states);
+	    }
+	}
+	
+	
+	
+RenderTarget
+
+    public void draw(Vertex[] vertices, int vertexCount,
+            PrimitiveType type, RenderStates states) {
+    	
+    }
+    
+    

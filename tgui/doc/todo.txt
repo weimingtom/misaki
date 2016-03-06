@@ -36,4 +36,28 @@ RenderTarget
     	
     }
     
-    
+--------------------------------
+
+Label:
+	public void draw(RenderTarget target, RenderStates states) {
+->        if (m_Text.getString().isEmpty()) {
+            return;
+        }
+->        
+com.iteye.weimingtom.tgui.sf.Text->  
+Font(todo)
+Glyph(*)
+Image(todo)
+
+
+
+sftexture:(ignore)
+	public void setSmooth(boolean smooth) {
+		if (smooth != this.m_isSmooth) {
+			this.m_isSmooth = smooth;
+			
+			//FIXME: not implemented
+		}
+	}
+	
+	

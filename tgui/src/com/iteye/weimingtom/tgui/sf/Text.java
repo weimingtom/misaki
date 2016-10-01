@@ -45,6 +45,15 @@ public class Text extends SFTransformable implements Drawable {
 	
 	public Text(Text copy) {
 		//FIXME:
+		this.m_string = copy.m_string;
+		this.m_font = copy.m_font;
+		this.m_characterSize = copy.m_characterSize;
+		this.m_style = copy.m_style;
+		this.m_color = new Color(copy.m_color);
+		this.m_vertices= new VertexArray(PrimitiveType.Quads);
+		this.m_bounds = new FloatRect();
+		
+		updateGeometry();
 	}
 	
 	public Text(String string, Font font) {
@@ -200,6 +209,7 @@ public class Text extends SFTransformable implements Drawable {
 	
 	private void updateGeometry() {
 	    // Clear the previous geometry
+		System.out.println("m_vertices = " + m_vertices);
 	    m_vertices.clear();
 	    m_bounds = new FloatRect();
 

@@ -38,6 +38,10 @@ public class Gui {
 	    m_Focused = false;
 		
         m_Container.m_Window = window;
+        
+        //FIXME: for AWT graphics API
+        m_Container.getGlobalFont()._window = window._window;
+        
         //&Gui::addChildCallback
         m_Container.bindGlobalCallback("addChildCallback", this);
 

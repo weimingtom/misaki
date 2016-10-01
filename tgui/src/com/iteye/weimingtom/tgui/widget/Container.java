@@ -17,6 +17,7 @@ import com.iteye.weimingtom.tgui.sf.Mouse;
 import com.iteye.weimingtom.tgui.sf.RenderStates;
 import com.iteye.weimingtom.tgui.sf.RenderTarget;
 import com.iteye.weimingtom.tgui.sf.Time;
+import com.iteye.weimingtom.tgui.sf.Window;
 
 /**
  * 20151004
@@ -90,7 +91,7 @@ public abstract class Container extends Widget {
 	}
 
 	public boolean setGlobalFont(String filename) {
-        return m_GlobalFont.loadFromFile(filename);
+		return m_GlobalFont.loadFromFile(filename);
 	}
 
 	public void setGlobalFont(Font font) {

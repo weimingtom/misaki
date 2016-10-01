@@ -1,6 +1,9 @@
 package com.iteye.weimingtom.tgui.sf;
 
 import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.Toolkit;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,8 +12,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @see http://www.cjsdn.net/Doc/JDK60/java/awt/Font.html
+ * @see http://www.cjsdn.net/Doc/JDK60/java/awt/FontMetrics.html
+ * @see http://tool.oschina.net/uploads/apidocs/jdk-zh/java/awt/class-use/FontMetrics.html
+ * @see https://github.com/sirinath/Harmony/blob/trunk/classlib/modules/awt/src/test/impl/windows/org/apache/harmony/awt/tests/java/awt/WinFontMetricsTest.java
+ * @see https://github.com/ostigter/testproject3/blob/master/CustomUI/src/org/ozsoft/customui/Utils.java
+ */
 public class Font {	
+    public Window _window = null;
+	
 	private Object m_library;
+	private java.awt.Font _dynamicFont;
 	private java.awt.Font m_face;
 	private Object m_streamRec;
 	private Integer m_refCount;
@@ -60,9 +73,13 @@ public class Font {
 		
         try {
         	File file = new File(filename);
-            java.awt.Font dynamicFont = java.awt.Font.createFont(
+            _dynamicFont = java.awt.Font.createFont(
 					java.awt.Font.TRUETYPE_FONT, file);
-			this.m_face = dynamicFont.deriveFont(18);
+            //Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 12);
+            //deriveFont(Font.PLAIN, 48f);
+			this.m_face = _dynamicFont.deriveFont(18);
+			Graphics graphics = _window._getGraphics();
+			graphics.setFont(this.m_face);
 	    } catch (FontFormatException e) {
 			e.printStackTrace();
 			return false;
@@ -73,16 +90,42 @@ public class Font {
         return true;
 	}
 	
+	//http://blog.csdn.net/zixiaomuwu/article/details/51068698
 	public int getLineSpacing(int characterSize) {
-		return 0;
+		//this.m_face.getLineMetrics(str, frc);
+		java.awt.Graphics graphics = _window._getGraphics();
+		java.awt.Font font = this.m_face.deriveFont(characterSize);
+		java.awt.FontMetrics fm = graphics.getFontMetrics(font);
+		//
+		//int ascent = fm.getAscent();
+		//int descent = fm.getDescent();
+		//
+		//getHeight = leading、ascent、descent 
+		return fm.getLeading();
 	}
 	
 	public int getKerning(int first, int second, int characterSize) {
+		//FIXME:
 		return 0;
 	}
 	
 	public Glyph getGlyph(int codePoint, int characterSize, boolean bold) {
-		return null;
+		java.awt.Graphics graphics = _window._getGraphics();
+		java.awt.Font font = this.m_face.deriveFont(characterSize);
+		java.awt.FontMetrics fm = graphics.getFontMetrics(font);
+		Rectangle2D rectangle = fm.getStringBounds(Character.toString((char)codePoint), graphics);
+		
+		Glyph result = new Glyph();
+		result.advance = fm.getMaxAdvance(); //FIXME:
+		result.bounds = new IntRect((int)rectangle.getX(), 
+			(int)rectangle.getY(), 
+			(int)rectangle.getWidth(), 
+			(int)rectangle.getHeight());
+		result.textureRect = new IntRect((int)rectangle.getX(), 
+			(int)rectangle.getY(), 
+			(int)rectangle.getWidth(), 
+			(int)rectangle.getHeight());
+		return result;
 	}
 	
     public SFTexture getTexture(int characterSize) {

@@ -204,4 +204,8 @@ public class Window {
 	        );		
 		}
 	}
+	
+	public Graphics _getGraphics() {
+		return this.m_impl.getBufGraph();
+	}
 }
